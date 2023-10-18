@@ -3,10 +3,10 @@ import { QuizzesController } from './quizzes.controller';
 import { QuizzesService } from './quizzes.service';
 
 describe('QuizzesController', () => {
-  let app: TestingModule;
+  let quizzesModule: TestingModule;
 
   beforeAll(async () => {
-    app = await Test.createTestingModule({
+    quizzesModule = await Test.createTestingModule({
       controllers: [QuizzesController],
       providers: [QuizzesService],
     }).compile();
@@ -14,7 +14,7 @@ describe('QuizzesController', () => {
 
   describe('getQuizzes', () => {
     it('should return quizzes', () => {
-      const quizzesController = app.get(QuizzesController);
+      const quizzesController = quizzesModule.get(QuizzesController);
       expect(quizzesController.getQuizzes()).toMatchSnapshot();
     });
   });
