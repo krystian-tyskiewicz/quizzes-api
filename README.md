@@ -11,6 +11,12 @@ $ docker-compose build
 $ docker-compose up
 ```
 
+## Running migrations
+
+```bash
+$ docker exec nest-docker-postgres npm run migration:run
+```
+
 ## Test
 
 ```bash
@@ -22,6 +28,38 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+```
+
+## Endpoints
+
+Add a user
+```bash
+curl 'http://localhost:3000/users' \
+    --header "Content-Type: application/json" \
+    --data-raw '{"email":"john.doe@test.com","firstName":"John","lastName":"Doe"}'
+```
+
+Update a user
+```bash
+curl 'http://localhost:3000/users/5' \
+    -X 'PATCH' \
+    --header "Content-Type: application/json" \
+    --data-raw '{"email":"john.doe@test.com","firstName":"John","lastName":"Doe"}'
+```
+
+Fetch users list
+```bash
+curl 'http://localhost:3000/users' --header "Content-Type: application/json"
+```
+
+Fetch a single user
+```bash
+curl 'http://localhost:3000/users/5' --header "Content-Type: application/json"
+```
+
+Delete a user
+```bash
+curl 'http://localhost:3000/users/5' -X "DELETE" --header "Content-Type: application/json"
 ```
 
 ## Setting up pgAdmin and PostgreSQL Server
