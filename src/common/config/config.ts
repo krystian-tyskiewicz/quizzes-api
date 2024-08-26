@@ -4,7 +4,7 @@ import { registerAs } from '@nestjs/config';
 
 dotenvConfig({ path: '.env' });
 
-const config = {
+const typeormConfig = {
   type: 'postgres',
   host: `${process.env.POSTGRES_HOST}`,
   port: `${process.env.POSTGRES_PORT}`,
@@ -17,5 +17,7 @@ const config = {
   synchronize: false,
 };
 
-export default registerAs('typeorm', () => config);
-export const connectionSource = new DataSource(config as DataSourceOptions);
+export const typeorm = registerAs('typeorm', () => typeormConfig);
+export const connectionSource = new DataSource(
+  typeormConfig as DataSourceOptions,
+);

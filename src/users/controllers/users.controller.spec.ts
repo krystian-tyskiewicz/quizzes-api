@@ -1,16 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
-import { users, user, userDto } from '../common/mock/users';
+import { UsersService } from '../services/users.service';
+import { users, user, updateUserDto } from '../../common/mock/users';
 
 describe('UsersController', () => {
   let controller: UsersController;
 
   const usersService = {
-    create: jest.fn(),
+    getOne: jest.fn().mockResolvedValue(user),
     update: jest.fn(),
     findAll: jest.fn().mockResolvedValue(users),
-    findOne: jest.fn().mockResolvedValue(user),
     remove: jest.fn(),
   };
 
@@ -26,18 +25,24 @@ describe('UsersController', () => {
     controller = module.get<UsersController>(UsersController);
   });
 
-  it('should create a new user', async () => {
-    await controller.create(user);
+  it('should get user profile', async () => {
+    const request = { user: { id: '1' } };
 
-    expect(usersService.create).toHaveBeenCalledWith(user);
+    const response = await controller.getProfile(request);
+
+    expect(usersService.getOne).toHaveBeenCalledWith(request.user.id);
+    expect(response).toEqual(user);
   });
 
   it('should update a user', async () => {
-    const userToUpdateId = user.id;
+    const request = { user: { id: '1' } };
 
-    await controller.update(userToUpdateId, userDto);
+    await controller.update(request, updateUserDto);
 
-    expect(usersService.update).toHaveBeenCalledWith(userToUpdateId, userDto);
+    expect(usersService.update).toHaveBeenCalledWith(
+      request.user.id,
+      updateUserDto,
+    );
   });
 
   it('should return users', async () => {
