@@ -21,7 +21,8 @@
     "migration:run": "npm run typeorm migration:run -- -d ./src/common/config/typeorm.ts",
     "migration:generate": "npm run typeorm -- -d ./src/common/config/typeorm.ts migration:generate ./src/common/migrations/migration",
     "migration:create": "npm run typeorm -- migration:create ./src/common/migrations/migration",
-    "migration:revert": "npm run typeorm -- -d ./src/common/config/typeorm.ts migration:revert"
+    "migration:revert": "npm run typeorm -- -d ./src/common/config/typeorm.ts migration:revert",
+    "create:admin": "ts-node ./src/common/seeder/create-admin.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -35,6 +36,7 @@
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "commander": "^12.1.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",

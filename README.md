@@ -23,6 +23,12 @@ $ docker-compose up
 $ docker exec nest-docker-postgres npm run migration:run
 ```
 
+## Create admin user
+
+```bash
+$ docker exec nest-docker-postgres npm run create:admin -- --email admin@test.com --firstName John --lastName Doe --password 1234
+```
+
 ## Test
 
 ```bash
@@ -56,7 +62,7 @@ Profile
 ```bash
 curl 'http://localhost:3000/me' \
     --header "Content-Type: application/json" \
-    --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcyNDQwMzg0OCwiZXhwIjoxNzI0NDkwMjQ4fQ.PADvjIDMdWTPUkz5YLpW48ckzq4job2MocOvQTrUU7w"
+    --header "Authorization: Bearer <TOKEN>"
 ```
 
 Update a user
@@ -64,7 +70,7 @@ Update a user
 curl 'http://localhost:3000/me' \
     -X 'PATCH' \
     --header "Content-Type: application/json" \
-    --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcyNDQwMzg0OCwiZXhwIjoxNzI0NDkwMjQ4fQ.PADvjIDMdWTPUkz5YLpW48ckzq4job2MocOvQTrUU7w" \
+    --header "Authorization: Bearer <TOKEN>" \
     --data-raw '{"firstName":"Johnny","lastName":"Smith"}'
 ```
 
@@ -72,14 +78,14 @@ Fetch users list
 ```bash
 curl 'http://localhost:3000/users' \
     --header "Content-Type: application/json" \
-    --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcyNDQwMzg0OCwiZXhwIjoxNzI0NDkwMjQ4fQ.PADvjIDMdWTPUkz5YLpW48ckzq4job2MocOvQTrUU7w"
+    --header "Authorization: Bearer <TOKEN>"
 ```
 
 Fetch a single user
 ```bash
 curl 'http://localhost:3000/users/1' \
     --header "Content-Type: application/json" \
-    --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcyNDQwMzg0OCwiZXhwIjoxNzI0NDkwMjQ4fQ.PADvjIDMdWTPUkz5YLpW48ckzq4job2MocOvQTrUU7w"
+    --header "Authorization: Bearer <TOKEN>"
 ```
 
 Delete a user
@@ -87,7 +93,7 @@ Delete a user
 curl 'http://localhost:3000/users/5' \
     -X "DELETE" \
     --header "Content-Type: application/json" \
-    --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcyNDQwMzg0OCwiZXhwIjoxNzI0NDkwMjQ4fQ.PADvjIDMdWTPUkz5YLpW48ckzq4job2MocOvQTrUU7w"
+    --header "Authorization: Bearer <TOKEN>"
 ```
 
 ## Setting up pgAdmin and PostgreSQL Server

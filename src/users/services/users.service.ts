@@ -19,7 +19,7 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto, role = roles.STANDARD) {
     const existingUser = await this.usersRepository.findOneBy({
       email: createUserDto.email,
     });
@@ -31,7 +31,7 @@ export class UsersService {
     const user = this.usersRepository.create({
       ...createUserDto,
       password: await bcrypt.hash(createUserDto.password, 10),
-      role: roles.STANDARD,
+      role,
     });
 
     return await this.usersRepository.save(user);
