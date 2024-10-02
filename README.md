@@ -42,59 +42,8 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Endpoints
-
-Register
-```bash
-curl 'http://localhost:3000/auth/register' \
-    --header "Content-Type: application/json" \
-    --data-raw '{"email":"john.doe@test.com","firstName":"John","lastName":"Doe", "password": "1234"}'
-```
-
-Login
-```bash
-curl 'http://localhost:3000/auth/login' \
-    --header "Content-Type: application/json" \
-    --data-raw '{"username":"john.doe@test.com", "password": "1234"}'
-```
-
-Profile
-```bash
-curl 'http://localhost:3000/me' \
-    --header "Content-Type: application/json" \
-    --header "Authorization: Bearer <TOKEN>"
-```
-
-Update a user
-```bash
-curl 'http://localhost:3000/me' \
-    -X 'PATCH' \
-    --header "Content-Type: application/json" \
-    --header "Authorization: Bearer <TOKEN>" \
-    --data-raw '{"firstName":"Johnny","lastName":"Smith"}'
-```
-
-Fetch users list
-```bash
-curl 'http://localhost:3000/users' \
-    --header "Content-Type: application/json" \
-    --header "Authorization: Bearer <TOKEN>"
-```
-
-Fetch a single user
-```bash
-curl 'http://localhost:3000/users/1' \
-    --header "Content-Type: application/json" \
-    --header "Authorization: Bearer <TOKEN>"
-```
-
-Delete a user
-```bash
-curl 'http://localhost:3000/users/5' \
-    -X "DELETE" \
-    --header "Content-Type: application/json" \
-    --header "Authorization: Bearer <TOKEN>"
-```
+## Api documentation
+Open Swagger documentation in the web browser by visiting http://localhost:3000/api
 
 ## Setting up pgAdmin and PostgreSQL Server
 
