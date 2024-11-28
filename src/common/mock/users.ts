@@ -1,5 +1,5 @@
 import { User } from '../../users/entities/user.entity';
-import roles from '../../users/roles/user.roles';
+import roles from '../../auth/roles/user.roles';
 
 export const users: User[] = [
   {

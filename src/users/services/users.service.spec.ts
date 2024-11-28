@@ -10,7 +10,7 @@ import {
   createUserDto,
   updateUserDto,
 } from '../../common/mock/users';
-import roles from '../roles/user.roles';
+import roles from '../../auth/roles/user.roles';
 
 describe('UsersService', () => {
   let service: UsersService;

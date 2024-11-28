@@ -18,11 +18,11 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./src/common/e2e/jest-e2e.json",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
-    "migration:run": "npm run typeorm migration:run -- -d ./src/common/config/typeorm.ts",
-    "migration:generate": "npm run typeorm -- -d ./src/common/config/typeorm.ts migration:generate ./src/common/migrations/migration",
-    "migration:create": "npm run typeorm -- migration:create ./src/common/migrations/migration",
-    "migration:revert": "npm run typeorm -- -d ./src/common/config/typeorm.ts migration:revert",
-    "create:admin": "ts-node ./src/common/seeder/create-admin.ts"
+    "migration:run": "npm run typeorm migration:run -- -d ./src/common/config/config.ts",
+    "migration:generate": "npm run typeorm migration:generate ./src/common/migrations/migration -- -d ./src/common/config/config.ts",
+    "migration:revert": "npm run typeorm migration:revert -- -d ./src/common/config/config.ts",
+    "create:admin": "ts-node ./src/common/seeder/create-admin.ts",
+    "create:quizzes": "ts-node ./src/common/seeder/create-quizzes.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

@@ -29,6 +29,12 @@ $ docker exec nest-docker-postgres npm run migration:run
 $ docker exec nest-docker-postgres npm run create:admin -- --email admin@test.com --firstName John --lastName Doe --password 1234
 ```
 
+## Create quizzes
+
+```bash
+$ docker exec nest-docker-postgres npm run create:quizzes
+```
+
 ## Test
 
 ```bash

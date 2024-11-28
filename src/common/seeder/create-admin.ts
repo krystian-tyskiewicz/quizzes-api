@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../../app.module';
 import { UsersService } from '../../users/services/users.service';
 import { CreateUserDto } from '../../users/dtos/create-user.dto';
-import roles from '../../users/roles/user.roles';
+import roles from '../../auth/roles/user.roles';
 
 async function bootstrap() {
   const program = new Command();

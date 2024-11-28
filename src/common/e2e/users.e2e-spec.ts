@@ -133,24 +133,4 @@ describe('Users module (e2e)', () => {
         .expect(200);
     });
   });
-
-  // it('/users (POST) - already exists', () => {
-  //   repositoryMock.findOneBy.mockReturnValue(user);
-
-  //   return request(app.getHttpServer())
-  //     .post('/users')
-  //     .send(user)
-  //     .expect(400)
-  //     .expect({ statusCode: 400, message: 'Email already exists' });
-  // });
-
-  // it('/users (POST)', () => {
-  //   repositoryMock.findOneBy.mockReturnValue(null);
-
-  //   return request(app.getHttpServer())
-  //     .post('/users')
-  //     .send(user)
-  //     .expect(201)
-  //     .expect(user);
-  // });
 });
