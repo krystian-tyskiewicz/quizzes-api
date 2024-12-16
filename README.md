@@ -50,6 +50,7 @@ $ npm run test:cov
 
 ## Api documentation
 Open Swagger documentation in the web browser by visiting http://localhost:3000/api
+![Screenshot](https://github.com/user-attachments/assets/d22627d8-82ea-4686-a352-93a55d204543)
 
 ## Setting up pgAdmin and PostgreSQL Server
 

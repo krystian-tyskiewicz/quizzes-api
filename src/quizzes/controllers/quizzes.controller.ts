@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -7,6 +8,7 @@ import {
   Post,
   Put,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
@@ -19,6 +21,7 @@ import { Quiz } from '../entities/quiz.entity';
 
 @Controller()
 @ApiBearerAuth()
+@UseInterceptors(ClassSerializerInterceptor)
 export class QuizzesController {
   constructor(private readonly quizzesService: QuizzesService) {}
 
@@ -50,7 +53,7 @@ export class QuizzesController {
   }
 
   @UseGuards(RolesGuard)
-  @Roles([roles.ADMIN])
+  @Roles([roles.ADMIN, roles.STANDARD])
   @UseGuards(JwtAuthGuard)
   @Get('quizzes/:id')
   @ApiResponse({ type: Quiz })

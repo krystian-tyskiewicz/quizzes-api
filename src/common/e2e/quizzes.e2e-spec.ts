@@ -9,9 +9,12 @@ import { Quiz } from '../../quizzes/entities/quiz.entity';
 import { Question } from '../../quizzes/entities/question.entity';
 import { Answer } from '../../quizzes/entities/answer.entity';
 import { User } from '../../users/entities/user.entity';
+import { UserQuiz } from '../../quizzes/entities/user-quiz.entity';
+import { UserAnswer } from '../../quizzes/entities/user-answer.entity';
 import { repositoryMockFactory } from '../mock/repository';
 import { JwtStrategy } from '../../auth/strategies/jwt.strategy';
 import { JwtAdminStrategyMock } from '../mock/jwt.admin.strategy';
+import { jwtToken } from '../mock/auth';
 import {
   createQuizDto,
   quiz,
@@ -19,7 +22,11 @@ import {
   updateQuizDto,
   updatedQuiz,
 } from '../mock/quizzes';
-import { jwtToken } from '../mock/auth';
+import {
+  createUserQuizDto,
+  userQuiz,
+  userQuizResponse,
+} from '../mock/user-quiz';
 
 describe('Quizzes module (e2e)', () => {
   let app: INestApplication;
@@ -27,6 +34,8 @@ describe('Quizzes module (e2e)', () => {
   const questionsRepositoryMock = repositoryMockFactory();
   const answersRepositoryMock = repositoryMockFactory();
   const usersRepositoryMock = repositoryMockFactory();
+  const userQuizRepositoryMock = repositoryMockFactory();
+  const userAnswerRepositoryMock = repositoryMockFactory();
 
   beforeAll(async () => {
     const moduleFixture = await Test.createTestingModule({
@@ -40,6 +49,10 @@ describe('Quizzes module (e2e)', () => {
       .useValue(answersRepositoryMock)
       .overrideProvider(getRepositoryToken(User))
       .useValue(usersRepositoryMock)
+      .overrideProvider(getRepositoryToken(UserQuiz))
+      .useValue(userQuizRepositoryMock)
+      .overrideProvider(getRepositoryToken(UserAnswer))
+      .useValue(userAnswerRepositoryMock)
       .overrideProvider(JwtStrategy)
       .useClass(JwtAdminStrategyMock)
       .compile();
@@ -64,7 +77,7 @@ describe('Quizzes module (e2e)', () => {
   });
 
   it('/quizzes (PUT)', () => {
-    quizzesRepositoryMock.findOneBy.mockReturnValue(quiz);
+    quizzesRepositoryMock.findOneBy.mockReturnValue({ ...quiz });
     questionsRepositoryMock.create.mockReturnValueOnce(
       updatedQuiz.questions[0],
     );
@@ -105,5 +118,26 @@ describe('Quizzes module (e2e)', () => {
       .delete(`/users/${quiz.id}`)
       .set('Authorization', `Bearer ${jwtToken}`)
       .expect(200);
+  });
+
+  it('/user-quizzes (POST)', () => {
+    userQuizRepositoryMock.findOneBy.mockReturnValue(userQuiz);
+
+    return request(app.getHttpServer())
+      .post('/user-quizzes')
+      .set('Authorization', `Bearer ${jwtToken}`)
+      .send(createUserQuizDto)
+      .expect(201)
+      .expect(userQuizResponse);
+  });
+
+  it('/user-quizzes/id (GET)', () => {
+    userQuizRepositoryMock.findOneBy.mockReturnValue(userQuiz);
+
+    return request(app.getHttpServer())
+      .get(`/user-quizzes/${userQuiz.id}`)
+      .set('Authorization', `Bearer ${jwtToken}`)
+      .expect(200)
+      .expect(userQuizResponse);
   });
 });
